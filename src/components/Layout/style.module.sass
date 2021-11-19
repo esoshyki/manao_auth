@@ -1,0 +1,55 @@
+@import ../../styles/partials/colors
+@import ../../styles/partials/flex
+@import ../../styles/partials/fonts
+
+.header
+  height: 60px
+  width: 100vw
+  background-color: $orange
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.4)
+
+.header_logo
+  width: 200px
+  height: 100%
+  float: left
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  background-color: $brown
+  margin-right: 20px
+
+.header_logo_h1
+  line-height: 100px
+  color: #fff
+  user-select: none
+  
+.header__nav
+  +flex(row, flex-start, center)
+  height: 100%
+
+.header__nav_link
+  position: relative
+  min-width: 150px
+  height: 40px
+  background-color: #fff
+  padding: 20px 0
+  +flex
+  text-decoration: none
+  +mainFont(15px, 900)
+  border: 1px solid #fff
+  border-top: 0
+  border-bottom: 0
+  transition: 0.2s ease-in
+  &:last-child
+    border-left: none
+  &:hover
+    cursor: pointer
+    transform: translateY(10px)
+
+.chosen_link
+  background-color: $orange
+  +mainFont(15px, 900, #fff)
+  transform: translateY(10px)
+  border-color: #fff
+
