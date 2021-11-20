@@ -1,6 +1,7 @@
 import * as React from "react";
+import UserContext from "./user.context";
+import Header from "./header";
 import classes from './style.module.sass';
-import { Link } from "react-router-dom";
 
 export interface LayoutProps {
   pageTitle?: string,
@@ -13,23 +14,12 @@ const Layout = ({
 }: LayoutProps) => {
   return (
       <div>
-        <header className={classes.header}>
-          <div className={classes.header_logo}>
-            <h1 className={classes.header_logo_h1}>{pageTitle}</h1>
+        <UserContext.Provider value={{inProcess: false, user: null}}>
+          <div className={classes.container}>
+            <Header pageTitle={pageTitle} />
+            {children}
           </div>
-
-          <nav className={classes.header__nav}>
-            <Link 
-              to="../pages/home" 
-              className={classes.header__nav_link + (pageTitle==="Home" ? ` ${classes.chosen_link}` : "")}>
-               Home
-             </Link>
-            <Link to="../pages/profile" className={classes.header__nav_link + (pageTitle === "Profile" ? ` ${classes.chosen_link}` : "")}>
-              Profile
-            </Link>
-          </nav>
-        </header>
-        {children}
+        </UserContext.Provider>
       </div>
   )
 };

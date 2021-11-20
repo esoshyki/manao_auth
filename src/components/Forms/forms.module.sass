@@ -1,0 +1,97 @@
+@import ../../styles/partials/flex
+@import ../../styles/partials/colors
+@import ../../styles/partials/fonts
+  
+.form_container
+  +flex(column, flex-start, center)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  padding: 50px 0
+  background-color: rgba(255, 255, 225, 0.5)
+  *
+    transition: 0.3s ease-in
+
+.form_body
+  +flex(column, flex-start, center)
+  max-width: 500px
+  width: 100%
+  min-height: 800px
+  background-color: #fff
+  box-shadow: 5px 5px 15px 5px #000000
+
+.form_body__header
+  position: relative
+  +flex(row, flex-start, center)
+  background-color: $blue
+  color: #fff
+  width: 100%
+  padding: 0 20px
+
+.form_body__header_close
+  position: absolute
+  right: 20px
+
+.form_body_pick_form
+  height: 50px
+  width: 100%
+  +flex(row, center, center)
+
+.form_body_pick_form_item
+  width: 50%
+  +flex
+  position: relative
+  height: 100%
+  &:hover
+    cursor: pointer
+  span
+    user-select: none
+
+.form_body_pick_form_active
+  position: absolute
+  width: 100%
+  height: 5px
+  background-color: $orange
+  bottom: 0
+  animation: set_sign 0.2s ease-in 0s
+
+
+.form
+  +flex(column, flex-start, center)
+  width: 100%
+
+  label
+    margin: 10px 0
+
+  input
+    height: 30px
+    margin-bottom: 10px
+  * 
+    width: 100%
+
+.signin
+  width: 100%
+  padding: 20px
+  +flex(column, flex-start, center)
+
+.submit_button
+  background-color: $blue
+  color: #fff
+  border-width: 0
+  padding: 20px
+  margin-top: 20px
+  &:hover
+    cursor: pointer
+  
+.error
+  color: red !important
+  line-height: 10px
+  +mainFont(14px)
+  
+@keyframes set_sign
+  0%
+    width: 0
+  100%
+    width: 100%
