@@ -1,14 +1,13 @@
-import * as React from 'react';
 import {
   Formik,
-  FormikHelpers,
-  FormikProps,
   Form,
   Field,
-  FieldProps,
 } from 'formik';
 import classes from './forms.module.sass';
 import * as Yup from 'yup';
+import { useState } from 'react';
+import { signUpData, SignHideProps } from '../../auth/interfaces';
+import auth from '../../auth';
 
 interface signUpFormVaules {
   login: string;
@@ -45,8 +44,7 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
-
-const SignUp = () => {
+const SignUp = ({hide}: SignHideProps) => {
   const initialValues: signUpFormVaules = { 
     login: "", 
     password: "",
@@ -55,20 +53,45 @@ const SignUp = () => {
     userName: ""  
   };
 
+  const [dbError, setDbError] = useState("");
+  const [dbSuccess, setDbSuccess] = useState("");
+
+  const signUp = async (userData: signUpFormVaules) => {
+    const newUser: signUpData = {
+      login: userData.login,
+      email: userData.email,
+      password: userData.password,
+      userName: userData.userName,
+      role: "admin"
+    };
+
+    const result = await auth.signUp(newUser);
+
+    if (result.error) {
+      setDbError(result.error)
+    };
+
+    if (result.user) {
+      setDbSuccess(`User ${result.user.login} has been created`)
+    }
+  };
+
   return (
     <div className={classes.signin}>
       <h1>Sign up</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
+        onSubmit={(values: signUpFormVaules, actions) => {
           console.log({ values, actions });
-          alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
+          signUp(values);
         }}
         validationSchema={SignupSchema}
       >
         {({ errors, touched }) => (    
-        <Form className={classes.form}>
+        <Form 
+          onChange={() => setDbError("")}
+          className={classes.form}>
 
           <label htmlFor="login">Login</label>
           <Field id="login" name="login" placeholder="Login" />
@@ -100,7 +123,26 @@ const SignUp = () => {
              <div className={classes.error}>{errors.userName}</div>
            ) : null}
 
-          <button className={classes.submit_button} type="submit">Submit</button>
+          {dbSuccess && <button 
+            className={classes.submit_button + " " + classes.database_success} 
+            onClick={hide}
+            >
+            {dbSuccess}
+          </button>}
+
+          {dbError && <button 
+            className={classes.submit_button + " " + classes.database_success} 
+            >
+            {dbError}
+          </button>}
+
+          {!dbError && !dbSuccess && <button 
+            className={classes.submit_button} 
+            type="submit"
+            >
+            Submit
+          </button>}
+
         </Form>
         )}
       </Formik>

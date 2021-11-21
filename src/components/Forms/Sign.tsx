@@ -2,13 +2,10 @@ import React, { ReactPropTypes, useState } from "react";
 import classes from "./forms.module.sass";
 import CloseButton from "../Elements/CloseButton";
 import Signin from "./Signin";
-import Signup from './Signup'
+import Signup from './Signup';
+import { SignHideProps } from '../../auth/interfaces';
 
-interface SignProps {
-  hide: () => void
-}
-
-const Sign = ({hide} : SignProps) => {
+const Sign = ({hide} : SignHideProps) => {
 
   const [isSignInChoose, setIsSignInChoose] = useState(true);
 
@@ -44,8 +41,8 @@ const Sign = ({hide} : SignProps) => {
 
         </div>
 
-        {isSignInChoose && <Signin />}
-        {!isSignInChoose && <Signup />}
+        {isSignInChoose && <Signin hide={hide}/>}
+        {!isSignInChoose && <Signup hide={hide}/>}
       </div>
 
     </div>

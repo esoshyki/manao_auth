@@ -1,19 +1,14 @@
-import * as React from 'react';
 import {
   Formik,
-  FormikHelpers,
-  FormikProps,
   Form,
   Field,
-  FieldProps,
 } from 'formik';
 import classes from './forms.module.sass';
 import * as Yup from 'yup';
+import auth from '../../auth';
+import { signInData, SignHideProps } from '../../auth/interfaces';
+import { useState } from 'react';
 
-interface SignInFrom {
-  login: string;
-  password: string;
-};
 
 const SigninSchema = Yup.object().shape({
   login: Yup.string()
@@ -27,8 +22,25 @@ const SigninSchema = Yup.object().shape({
 });
 
 
-const Signin = () => {
-  const initialValues: SignInFrom = { login: "", password: "" };
+const Signin = ({hide} : SignHideProps) => {
+  const initialValues: signInData = { login: "", password: "" };
+
+  const [dbError, setDbError] = useState("");
+  const [dbSuccess, setDbSuccess] = useState("");
+
+  const signin = async (userData: signInData) => {
+    const result = await auth.signIn(userData);
+
+    if (result.error) {
+      setDbError(result.error)
+    };
+
+    if (result.user) {
+      setDbSuccess(`Hello, ${result.user.userName}`)
+    }
+
+
+  };
 
   return (
     <div className={classes.signin}>
@@ -36,9 +48,7 @@ const Signin = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          console.log({ values, actions });
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
+          signin(values)
         }}
         validationSchema={SigninSchema}
       >
@@ -56,7 +66,27 @@ const Signin = () => {
              <div className={classes.error}>{errors.password}</div>
            ) : null}
 
-          <button className={classes.submit_button} type="submit">Submit</button>
+
+          {dbSuccess && <button 
+            className={classes.submit_button + " " + classes.database_success} 
+            onClick={hide}
+            >
+            {dbSuccess}
+          </button>}
+
+          {dbError && <button 
+            className={classes.submit_button + " " + classes.database_success} 
+            >
+            {dbError}
+          </button>}
+
+          {!dbError && !dbSuccess && <button 
+            className={classes.submit_button} 
+            type="submit"
+            >
+            Submit
+          </button>}
+          
         </Form>
         )}
       </Formik>

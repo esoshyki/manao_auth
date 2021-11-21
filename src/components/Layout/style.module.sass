@@ -40,19 +40,13 @@
   height: 100%
 
 .header__nav_link
-  animation: showLinks 0.2s ease-in 0s
   position: relative
-  margin: 0 10px
-  min-width: 150px
+  margin: 0 30px
   height: 40px
-  background-color: #fff
   padding: 20px 0
   +flex
   text-decoration: none
-  +mainFont(15px, 900)
-  border: 1px solid #fff
-  border-top: 0
-  border-bottom: 0
+  +mainFont(15px, 500, #fff)
   transition: 0.2s ease-in
   &:last-child
     border-left: none
@@ -66,17 +60,26 @@
   position: absolute
   right: 20px
   top: 5px
-  border-width: 1px
+  border-width: 0
   transition: 0.1s ease-in
+  border-radius: 25px
+  +mainFont(20px, 800)
   &:hover
     cursor: pointer
-    border-width: 3px
   &:focus
     animation: button_on_click 0.3s ease-in-out 0s
 
 .chosen_link
   animation: none !important
-  transform: translateY(10px)
+  font-weight: 800
+  &::after
+    content: ""
+    position: absolute
+    height: 3px
+    width: 110%
+    top: 32px
+    background-color: #fff
+    animation: show 0.2s ease-in-out 0s
 
 @keyframes button_on_click
   0%
@@ -86,9 +89,9 @@
   100%
     transform: scale(1)
 
-@keyframes showLinks
+@keyframes show
   0%
-    transform: translateY(10px)   
+    width: 0
   100%
-    transform: translateY(0px)
+    width: 100%
 
