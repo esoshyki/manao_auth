@@ -8,7 +8,7 @@ import { SignHideProps } from '../../auth/interfaces';
 const Sign = ({hide} : SignHideProps) => {
 
   const [isSignInChoose, setIsSignInChoose] = useState(true);
-
+  
 
   return (
     <div className={classes.form_container}>

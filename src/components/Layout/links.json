@@ -1,0 +1,23 @@
+[
+  {
+    "path" : "/",
+    "title" : "Home",
+    "roles" : [
+      "admin", "user", "guest"
+    ]
+  },
+  {
+    "path" : "/profile",
+    "title" : "Profile",
+    "roles" : [
+      "admin", "user"
+    ]
+  },
+  {
+    "path" : "/admin",
+    "title" : "Admin",
+    "roles" : [
+      "admin"
+    ]
+  }
+]

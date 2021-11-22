@@ -3,16 +3,35 @@ import UserContext from "../../contexts/user.context";
 import { Link } from "react-router-dom";
 import classes from './style.module.sass';
 import Sign from '../Forms/Sign';
-
+import links from './links.json';
 
 interface HeaderProps {
   pageTitle: string,
 };
 
+type LinkData = {
+  path: string;
+  title: string;
+  roles: Array<string>
+};
+
+console.log(links);
+
+
 const Header = ({pageTitle}: HeaderProps) => {
 
   const { user, setUser } = useContext(UserContext);
   const [showSignForm, setSHowSignForm] = useState(false);
+
+  const CustomLink = (linkData: LinkData, key: number) => {
+    return linkData.roles.includes(user.role) ? (
+    <Link 
+      key={key}
+      to={linkData.path} 
+      className={classes.header__nav_link + (pageTitle===linkData.title ? ` ${classes.chosen_link}` : "")}>
+        {linkData.title}
+      </Link>) : null
+    }
 
   return (
     <header className={classes.header}>
@@ -23,27 +42,9 @@ const Header = ({pageTitle}: HeaderProps) => {
         <div className={classes.header_content}>
         <nav className={classes.header__nav}>
 
-          <Link 
-            to="/home" 
-            className={classes.header__nav_link + (pageTitle==="Home" ? ` ${classes.chosen_link}` : "")}>
-            Home
-          </Link>
-
-          {["admin", "user"].includes(user.role) && (
-            <Link 
-              to="/profile" 
-              className={classes.header__nav_link + (pageTitle === "Profile" ? ` ${classes.chosen_link}` : "")}
-              >
-              Profile
-            </Link>)}
-
-          {user.role === "admin" && (
-            <Link 
-              to="/admin" 
-              className={classes.header__nav_link + (pageTitle === "Admin" ? ` ${classes.chosen_link}` : "")}
-              >
-              Admin
-            </Link>)}
+        {links.map((linkData: LinkData, idx) => {
+          return CustomLink(linkData, idx)
+        })}
 
         </nav>
         <h2 className={classes.header__user_gratz}>{`Hello, ${user.userName || "Guest! Please, sign in"}!`}</h2>

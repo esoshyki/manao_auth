@@ -63,7 +63,7 @@ const SignUp = ({hide}: SignHideProps) => {
       email: userData.email,
       password: userData.password,
       userName: userData.userName,
-      role: "admin"
+      role: "user"
     };
 
     const result = await auth.signUp(newUser);
