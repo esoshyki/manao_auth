@@ -1,5 +1,5 @@
 import { app } from './index';
-import { getDatabase, ref, get, set, query, equalTo } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 import { findUserData, signUpData, signResult, responseUserData } from './interfaces';
 
 async function findUserByLoginOrEmail({
@@ -71,8 +71,10 @@ const createUser = async (userData: signUpData) : Promise<signResult> => {
   };
 };
 
-export default ({
+const databaseService = {
   findUserByLoginOrEmail,
   createUser,
   getUser
-})
+}
+
+export default databaseService;

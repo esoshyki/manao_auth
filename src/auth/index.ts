@@ -46,9 +46,11 @@ async function signIn(userData: signInData) : Promise<signResult>  {
   }
 }
 
-export default ({
+const AuthService = {
   signIn, signUp
-})
+}
+
+export default AuthService;
 
 
 

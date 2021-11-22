@@ -7,8 +7,8 @@ import classes from './forms.module.sass';
 import * as Yup from 'yup';
 import auth from '../../auth';
 import { signInData, SignHideProps } from '../../auth/interfaces';
-import { useState } from 'react';
-
+import { useState, useContext } from 'react';
+import UserContext from '../../contexts/user.context';
 
 const SigninSchema = Yup.object().shape({
   login: Yup.string()
@@ -25,6 +25,10 @@ const SigninSchema = Yup.object().shape({
 const Signin = ({hide} : SignHideProps) => {
   const initialValues: signInData = { login: "", password: "" };
 
+  const userContext = useContext(UserContext);
+
+  const { setUser } = userContext;
+
   const [dbError, setDbError] = useState("");
   const [dbSuccess, setDbSuccess] = useState("");
 
@@ -37,6 +41,9 @@ const Signin = ({hide} : SignHideProps) => {
 
     if (result.user) {
       setDbSuccess(`Hello, ${result.user.userName}`)
+      if (setUser) {
+        setUser(result.user);
+      };
     }
 
 

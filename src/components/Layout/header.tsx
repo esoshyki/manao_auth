@@ -1,16 +1,17 @@
 import { useContext, useState } from "react";
-import UserContext from "./user.context";
+import UserContext from "../../contexts/user.context";
 import { Link } from "react-router-dom";
 import classes from './style.module.sass';
 import Sign from '../Forms/Sign';
 
+
 interface HeaderProps {
-  pageTitle: string
+  pageTitle: string,
 };
 
 const Header = ({pageTitle}: HeaderProps) => {
 
-  const { user, inProcess } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [showSignForm, setSHowSignForm] = useState(false);
 
   return (
@@ -30,7 +31,8 @@ const Header = ({pageTitle}: HeaderProps) => {
             Profile
           </Link>
         </nav>
-        {user && <button className={classes.header__user_button}>{user}</button>}
+        {user && <h2>{`Hello, ${user.userName}!`}</h2>}
+        {user && <button className={classes.header__user_button}>Logout</button>}
         {!user && <button 
           className={classes.header__user_button}
           onClick={() => setSHowSignForm(true)}

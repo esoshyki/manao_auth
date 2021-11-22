@@ -1,4 +1,4 @@
-import React, { ReactPropTypes, useState } from "react";
+import { useState } from "react";
 import classes from "./forms.module.sass";
 import CloseButton from "../Elements/CloseButton";
 import Signin from "./Signin";
@@ -8,6 +8,7 @@ import { SignHideProps } from '../../auth/interfaces';
 const Sign = ({hide} : SignHideProps) => {
 
   const [isSignInChoose, setIsSignInChoose] = useState(true);
+
 
   return (
     <div className={classes.form_container}>
