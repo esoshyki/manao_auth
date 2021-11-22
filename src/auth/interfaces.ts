@@ -18,6 +18,11 @@ export interface responseUserData {
   role: string
 }
 
+export interface noUserData {
+  role: string,
+  userName: null
+}
+
 export interface signResult {
   error?: string;
   user?: responseUserData;

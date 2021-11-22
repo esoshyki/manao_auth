@@ -33,12 +33,12 @@ const getUser = async (login: string) => {
   const database = getDatabase(app);
   const userRef = ref(database, 'manao/users/' + login);
   const snapshot = await get(userRef);
-
+  
   if (snapshot.exists()) {
     return snapshot.val()
-  } else {
+    } else {
     return null
-  }
+  };
 };
 
 const getResponseData = (userData: signUpData) : responseUserData => {

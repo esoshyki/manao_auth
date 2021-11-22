@@ -20,28 +20,35 @@ async function signUp(userData: signUpData) : Promise<signResult> {
 }
 
 async function signIn(userData: signInData) : Promise<signResult>  {
-  const user = await database.getUser(userData.login);
 
-  if (user) {
-    if (user.password === userData.password) {
-      const responseData = {
-        login: user.login,
-        email: user.email,
-        role: user.role,
-        userName: user.userName
-      };
+  try {
+    const user = await database.getUser(userData.login);
 
-      return ({
-        user: responseData
-      });
+    if (user) {
+      if (user.password === userData.password) {
+        const responseData = {
+          login: user.login,
+          email: user.email,
+          role: user.role,
+          userName: user.userName
+        };
+  
+        return ({
+          user: responseData
+        });
+      } else {
+        return ({
+          error: "Password don't match"
+        })
+      }
     } else {
       return ({
-        error: "Password don't match"
+        error: "User doesn't exists"
       })
     }
-  } else {
+  } catch (error: any) {
     return ({
-      error: "User doesn't exists"
+      error: error.message
     })
   }
 }

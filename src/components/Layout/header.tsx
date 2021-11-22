@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header = ({pageTitle}: HeaderProps) => {
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [showSignForm, setSHowSignForm] = useState(false);
 
   return (
@@ -22,18 +22,42 @@ const Header = ({pageTitle}: HeaderProps) => {
         </div>
         <div className={classes.header_content}>
         <nav className={classes.header__nav}>
+
           <Link 
-            to="../pages/home" 
+            to="/home" 
             className={classes.header__nav_link + (pageTitle==="Home" ? ` ${classes.chosen_link}` : "")}>
             Home
           </Link>
-          <Link to="../pages/profile" className={classes.header__nav_link + (pageTitle === "Profile" ? ` ${classes.chosen_link}` : "")}>
-            Profile
-          </Link>
+
+          {["admin", "user"].includes(user.role) && (
+            <Link 
+              to="/profile" 
+              className={classes.header__nav_link + (pageTitle === "Profile" ? ` ${classes.chosen_link}` : "")}
+              >
+              Profile
+            </Link>)}
+
+          {user.role === "admin" && (
+            <Link 
+              to="/admin" 
+              className={classes.header__nav_link + (pageTitle === "Admin" ? ` ${classes.chosen_link}` : "")}
+              >
+              Admin
+            </Link>)}
+
         </nav>
-        {user && <h2>{`Hello, ${user.userName}!`}</h2>}
-        {user && <button className={classes.header__user_button}>Logout</button>}
-        {!user && <button 
+        <h2 className={classes.header__user_gratz}>{`Hello, ${user.userName || "Guest! Please, sign in"}!`}</h2>
+
+        {user.role !== "guest" && (
+          <button 
+            className={classes.header__user_button}
+            onClick={() => {if (setUser) setUser({role: "guest", userName: null})}}
+            >
+              Logout
+          </button>
+          )}
+
+        {user.role === "guest" && <button 
           className={classes.header__user_button}
           onClick={() => setSHowSignForm(true)}
           >

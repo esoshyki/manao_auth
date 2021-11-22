@@ -21,7 +21,8 @@ const SignupSchema = Yup.object().shape({
   login: Yup.string()
     .min(6, 'Too Short!')
     .max(50, 'Too Long!')
-    .required('Required'),
+    .required('Required')
+    .matches(/(?=.*[a-zA-Z0-9])/, "Must contain no special symbols"),
   password: Yup.string()
     .min(6, 'Too Short!')
     .max(50, 'Too Long!')

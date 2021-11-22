@@ -14,7 +14,8 @@ const SigninSchema = Yup.object().shape({
   login: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
-    .required('Required'),
+    .required('Required')
+    .matches(/^[aA-zZ0-9\s]+$/, "Must contain no special symbols"),
   password: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
@@ -44,6 +45,9 @@ const Signin = ({hide} : SignHideProps) => {
       if (setUser) {
         setUser(result.user);
       };
+      setTimeout(() => {
+        hide();
+      }, 2000)
     }
 
 
@@ -60,7 +64,11 @@ const Signin = ({hide} : SignHideProps) => {
         validationSchema={SigninSchema}
       >
         {({ errors, touched }) => (
-        <Form className={classes.form}>
+        <Form 
+          className={classes.form}
+          onChange={() => setDbError("")}
+          >
+          
           <label htmlFor="login">Login</label>
           <Field id="login" name="login" placeholder="Login" />
           {errors.login && touched.login ? (
@@ -75,6 +83,7 @@ const Signin = ({hide} : SignHideProps) => {
 
 
           {dbSuccess && <button 
+            type="button"
             className={classes.submit_button + " " + classes.database_success} 
             onClick={hide}
             >
@@ -82,7 +91,8 @@ const Signin = ({hide} : SignHideProps) => {
           </button>}
 
           {dbError && <button 
-            className={classes.submit_button + " " + classes.database_success} 
+            type="button"
+            className={classes.submit_button + " " + classes.database_error} 
             >
             {dbError}
           </button>}
