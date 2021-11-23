@@ -20,10 +20,10 @@ const Header = ({pageTitle}: HeaderProps) => {
   const { user, setUser } = useContext(UserContext);
   const [showSignForm, setSHowSignForm] = useState(false);
 
-  const CustomLink = (linkData: LinkData, key: number) => {
+  const CustomLink = (linkData: LinkData) => {
     return linkData.roles.includes(user.role) ? (
     <Link 
-      key={key}
+      key={linkData.title}
       to={linkData.path} 
       className={classes.header__nav_link + (pageTitle===linkData.title ? ` ${classes.chosen_link}` : "")}>
         {linkData.title}
@@ -39,8 +39,8 @@ const Header = ({pageTitle}: HeaderProps) => {
         <div className={classes.header_content}>
         <nav className={classes.header__nav}>
 
-        {links.map((linkData: LinkData, idx) => {
-          return CustomLink(linkData, idx)
+        {links.map((linkData: LinkData) => {
+          return CustomLink(linkData)
         })}
 
         </nav>
