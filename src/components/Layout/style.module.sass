@@ -1,6 +1,7 @@
 @import ../../styles/partials/colors
 @import ../../styles/partials/flex
 @import ../../styles/partials/fonts
+@import ../../styles/partials/media
 
 .container
   +flex(column, flex-start, center)
@@ -38,6 +39,11 @@
 .header__nav
   +flex(row, flex-start, center)
   height: 100%
+  +mobile
+    position: absolute
+    top: 60px
+    width: 100px
+    +flex(column, flex-start, center)
 
 .header__nav_link
   position: relative
@@ -58,6 +64,11 @@
   text-align: right
   padding: 0px 20px
 
+  +mobile
+    position: absolute
+    top: 60px
+    right: 5px
+
 .header__user_button
   width: 200px
   height: 50px
@@ -74,6 +85,10 @@
     animation: button_on_click 0.6s ease-in-out 0s infinite   
   &:focus
     animation: button_on_click 0.3s ease-in-out 0s
+  +mobile
+    width: 150px
+    height: 40px
+    top: 10px
 
 .chosen_link
   animation: none !important

@@ -15,9 +15,6 @@ type LinkData = {
   roles: Array<string>
 };
 
-console.log(links);
-
-
 const Header = ({pageTitle}: HeaderProps) => {
 
   const { user, setUser } = useContext(UserContext);
@@ -52,7 +49,10 @@ const Header = ({pageTitle}: HeaderProps) => {
         {user.role !== "guest" && (
           <button 
             className={classes.header__user_button}
-            onClick={() => {if (setUser) setUser({role: "guest", userName: null})}}
+            onClick={() => {
+              if (setUser) setUser({role: "guest", userName: null});
+              window.sessionStorage.removeItem("user");
+            }}
             >
               Logout
           </button>

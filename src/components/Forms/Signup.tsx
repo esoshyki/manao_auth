@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 import { SignUpData, SignHideProps } from '../../interfaces/auth';
 import auth from '../../auth';
+import Loading from '../Elements/Loading';
 
 interface SignUpFormVaules {
   login: string;
@@ -56,8 +57,10 @@ const SignUp = ({hide}: SignHideProps) => {
 
   const [dbError, setDbError] = useState("");
   const [dbSuccess, setDbSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const signUp = async (userData: SignUpFormVaules) => {
+    setLoading(true);
     const newUser: SignUpData = {
       login: userData.login,
       email: userData.email,
@@ -74,11 +77,13 @@ const SignUp = ({hide}: SignHideProps) => {
 
     if (result.user) {
       setDbSuccess(`User ${result.user.login} has been created`)
-    }
+    };
+    setLoading(false);
   };
 
   return (
     <div className={classes.signin}>
+      {loading && <Loading />}
       <h1>Sign up</h1>
       <Formik
         initialValues={initialValues}

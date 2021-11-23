@@ -47,6 +47,7 @@ const Signin = ({hide} : SignHideProps) => {
       setDbSuccess(`Hello, ${result.user.userName}`)
       if (setUser) {
         setUser(result.user);
+        window.sessionStorage.setItem("user", JSON.stringify(result.user));
       };
       setTimeout(() => {
         hide();

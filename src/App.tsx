@@ -4,7 +4,7 @@ import Profile from './pages/profile/';
 import Admin from "./pages/admin";
 import About from './pages/about';
 import Forbidden from "./pages/forbidden";
-import { useState, ReactElement } from 'react';
+import { useState, ReactElement, useEffect } from 'react';
 import UserContext from "./contexts/user.context";
 
 const roles = {
@@ -26,6 +26,18 @@ function App() {
     userName: null,
     login: null
   });
+
+  useEffect(() => {
+
+    if (!user.userName) {
+      const userJSON = window.sessionStorage.getItem("user");
+
+      if (userJSON) {
+        setUser(JSON.parse(userJSON))
+      }
+    }
+
+  }, [user.userName])
 
   const SequireRoute = (route: secureRoute) => {
     if (route.roles.includes(user.role)) {
