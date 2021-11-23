@@ -137,7 +137,7 @@ const SignUp = ({hide}: SignHideProps) => {
           </button>}
 
           {dbError && <button 
-            className={classes.submit_button + " " + classes.database_success} 
+            className={classes.submit_button + " " + classes.database_error} 
             >
             {dbError}
           </button>}

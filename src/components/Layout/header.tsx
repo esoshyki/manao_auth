@@ -52,6 +52,7 @@ const Header = ({pageTitle}: HeaderProps) => {
             onClick={() => {
               if (setUser) setUser({role: "guest", userName: null});
               window.sessionStorage.removeItem("user");
+              window.location.replace("/home");
             }}
             >
               Logout
