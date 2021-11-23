@@ -20,6 +20,7 @@ async function signUp(userData: SignUpData) : Promise<SignResult> {
   return await database.createUser(userData)
 }
 
+
 async function signIn(userData: SignInData) : Promise<SignResult>  {
 
   try {
