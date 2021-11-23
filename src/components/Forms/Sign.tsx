@@ -3,7 +3,7 @@ import classes from "./forms.module.sass";
 import CloseButton from "../Elements/CloseButton";
 import Signin from "./Signin";
 import Signup from './Signup';
-import { SignHideProps } from '../../auth/interfaces';
+import { SignHideProps } from '../../interfaces/auth';
 
 const Sign = ({hide} : SignHideProps) => {
 

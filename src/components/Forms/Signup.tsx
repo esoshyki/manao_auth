@@ -6,10 +6,10 @@ import {
 import classes from './forms.module.sass';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { signUpData, SignHideProps } from '../../auth/interfaces';
+import { SignUpData, SignHideProps } from '../../interfaces/auth';
 import auth from '../../auth';
 
-interface signUpFormVaules {
+interface SignUpFormVaules {
   login: string;
   password: string;
   confirmPassword: string;
@@ -46,7 +46,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUp = ({hide}: SignHideProps) => {
-  const initialValues: signUpFormVaules = { 
+  const initialValues: SignUpFormVaules = { 
     login: "", 
     password: "",
     confirmPassword: "",
@@ -57,8 +57,8 @@ const SignUp = ({hide}: SignHideProps) => {
   const [dbError, setDbError] = useState("");
   const [dbSuccess, setDbSuccess] = useState("");
 
-  const signUp = async (userData: signUpFormVaules) => {
-    const newUser: signUpData = {
+  const signUp = async (userData: SignUpFormVaules) => {
+    const newUser: SignUpData = {
       login: userData.login,
       email: userData.email,
       password: userData.password,
@@ -82,7 +82,7 @@ const SignUp = ({hide}: SignHideProps) => {
       <h1>Sign up</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values: signUpFormVaules, actions) => {
+        onSubmit={(values: SignUpFormVaules, actions) => {
           console.log({ values, actions });
           actions.setSubmitting(false);
           signUp(values);

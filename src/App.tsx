@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/home/';
 import Profile from './pages/profile/';
 import Admin from "./pages/admin";
+import About from './pages/about';
 import Forbidden from "./pages/forbidden";
 import { useState, ReactElement } from 'react';
 import UserContext from "./contexts/user.context";
@@ -22,7 +23,8 @@ function App() {
 
   const [user, setUser] = useState({
     role: roles.guest,
-    userName: null
+    userName: null,
+    login: null
   });
 
   const SequireRoute = (route: secureRoute) => {
@@ -40,6 +42,11 @@ function App() {
         {SequireRoute({
           path: "/",
           element: <Home />,
+          roles: [roles.admin, roles.guest, roles.user]
+        })}
+        {SequireRoute({
+          path: "/about",
+          element: <About />,
           roles: [roles.admin, roles.guest, roles.user]
         })}
         {SequireRoute({

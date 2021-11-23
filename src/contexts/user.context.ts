@@ -1,15 +1,16 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { responseUserData, noUserData } from '../auth/interfaces';
+import { SafeUserData, NoUserData } from '../interfaces/auth';
 
 type userContextValue = {
-  user: responseUserData | noUserData,
+  user: SafeUserData | NoUserData,
   setUser: Dispatch<SetStateAction<any>> | null
 };
 
 const userContextDefaultValue: userContextValue = {
   user: {
     role: "guest",
-    userName: null
+    userName: null,
+    login: null
   },
   setUser: null
 };

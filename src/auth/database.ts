@@ -1,10 +1,10 @@
 import { app } from './index';
 import { getDatabase, ref, get, set } from "firebase/database";
-import { findUserData, signUpData, signResult, responseUserData } from './interfaces';
+import { FindUserData, SafeUserData, SignUpData, SignResult } from '../interfaces/auth';
 
 async function findUserByLoginOrEmail({
   login, email
-} : findUserData) {
+} : FindUserData) {
   try {
     const database = getDatabase(app);
     const sameLoginQuery = ref(database, 'manao/users');
@@ -41,7 +41,7 @@ const getUser = async (login: string) => {
   };
 };
 
-const getResponseData = (userData: signUpData) : responseUserData => {
+const getResponseData = (userData: SignUpData) : SafeUserData => {
   const responseData = {
     login: userData.login,
     email: userData.email,
@@ -52,7 +52,7 @@ const getResponseData = (userData: signUpData) : responseUserData => {
   return responseData;
 };
 
-const createUser = async (userData: signUpData) : Promise<signResult> => {
+const createUser = async (userData: SignUpData) : Promise<SignResult> => {
   const database = getDatabase(app);
   const foundUsers = await findUserByLoginOrEmail({
     login: userData.login,

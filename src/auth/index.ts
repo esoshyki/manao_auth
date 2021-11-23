@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { signUpData, signResult, signInData } from "./interfaces";
+import { SignUpData, SignInData, SignResult } from "../interfaces/auth";
+
 import database from "./database";
 
 const firebaseConfig = {
@@ -15,11 +16,11 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 
-async function signUp(userData: signUpData) : Promise<signResult> {
+async function signUp(userData: SignUpData) : Promise<SignResult> {
   return await database.createUser(userData)
 }
 
-async function signIn(userData: signInData) : Promise<signResult>  {
+async function signIn(userData: SignInData) : Promise<SignResult>  {
 
   try {
     const user = await database.getUser(userData.login);

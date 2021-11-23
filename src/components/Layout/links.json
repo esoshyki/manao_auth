@@ -7,6 +7,13 @@
     ]
   },
   {
+    "path" : "/about",
+    "title" : "About",
+    "roles" : [
+      "admin", "user", "guest"
+    ]
+  },
+  {
     "path" : "/profile",
     "title" : "Profile",
     "roles" : [
